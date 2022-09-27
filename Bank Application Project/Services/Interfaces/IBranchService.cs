@@ -8,7 +8,7 @@ using Bank_Application_Project.Services.Implementations;
 
 namespace Bank_Application_Project.Services.Interfaces
 {
-    public interface IBranchService 
+    public interface IBranchService : IBankService<Branch>
     {
         void HireEmployee();
         void GetProfit();

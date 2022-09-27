@@ -12,6 +12,8 @@ namespace Bank_Application_Project.Models
         public double Salary { get; set; }
         public string Profession { get; set; }
         public Branch branch { get; set; }
+       
+       
 
         public Employee(string name, string surname,double salary, string profession)
         {

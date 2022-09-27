@@ -3,31 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bank_Application_Project.Data;
 using Bank_Application_Project.Models;
 using Bank_Application_Project.Services.Interfaces;
 
 namespace Bank_Application_Project.Services.Implementations
 {
-    public class BranchService : IBranchService, IBankService
+    public class BranchService : IBranchService, IBankService<Branch>
     {
-        public void Create()
+        private Bank<Branch> branches;
+
+        public BranchService()  //Dependency Injection (Data-Bank classini gormek ucun)
         {
-            throw new NotImplementedException();
+            branches = new Bank<Branch>();
+        }
+        public void Create(Branch entity)
+        {
+            branches.DataBase.Add(entity);
         }
 
-        public void Delete()
+        public void Delete(string name)
         {
-            throw new NotImplementedException();
+            Branch branch = branches.DataBase.Find(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
+            branch.SoftDelete = false;
+            GetAll();
         }
 
-        public void Get()
+        public void Get(string filter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Branch branch = branches.DataBase.Find(m => m.Name.Contains(filter.ToLower().Trim()));
+                Console.WriteLine(branch.Name);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Branch not found");
+            }
         }
 
         public void GetAll()
         {
-            throw new NotImplementedException();
+            foreach (var branch in branches.DataBase.Where(m => m.SoftDelete == false))
+            {
+                Console.WriteLine(branch.Name + branch.Address);
+            }
         }
 
         public void GetProfit()

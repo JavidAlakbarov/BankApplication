@@ -8,7 +8,7 @@ using Bank_Application_Project.Services.Implementations;
 
 namespace Bank_Application_Project.Services.Interfaces
 {
-    public interface IEmployeeService :  IBankService , IBranchService
+    public interface IEmployeeService :  IBankService<Employee>
     {
        
     }
