@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace Bank_Application_Project.Models
 {
-    public class Manager : GenericProperties
+    public class Manager : GeneralProperties
     {
         public string Surname { get; set; }
-        
-        public string Username = Console.ReadLine();
-        public string Login = "Javid023";
-        public int Password = int.Parse(Console.ReadLine());
-        public int pinCode = 2323;
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-        public Manager(string name, string surname, string username, int password )
+
+        public Manager(string name, string surname, string username, string password )
         {
             this.Name = name;
             this.Surname = surname;

@@ -19,7 +19,11 @@ namespace Bank_Application_Project.Services.Implementations
         }
         public void Create(Branch entity)
         {
-            branches.DataBase.Add(entity);
+            if (entity.SoftDelete == false)
+            {
+                branches.DataBase.Add(entity);
+            }       
+          
         }
 
         public void Delete(string name)
@@ -46,7 +50,7 @@ namespace Bank_Application_Project.Services.Implementations
         {
             foreach (var branch in branches.DataBase.Where(m => m.SoftDelete == false))
             {
-                Console.WriteLine(branch.Name + branch.Address);
+                Console.WriteLine(branch.Name +" "+ branch.Address);
             }
         }
 
@@ -70,9 +74,11 @@ namespace Bank_Application_Project.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public void Update()
+        public void Update(string name,double budget,string address)
         {
-            throw new NotImplementedException();
+            Branch branch = branches.DataBase.Find(z => z.Name.Trim().ToLower() == name.Trim().ToLower());
+            branch.Budget = budget;
+            branch.Address = address;
         }
     }
 }

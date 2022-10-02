@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank_Application_Project.Models
 {
-    public class GenericProperties
+    public class GeneralProperties
     {
         public string Name { get; set; }
         public bool SoftDelete { get; set; }

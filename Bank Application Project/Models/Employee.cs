@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Bank_Application_Project.Models
 {
-    public class Employee : GenericProperties
+    public class Employee : GeneralProperties
     {
         public string Surname { get; set; }
         public double Salary { get; set; }
         public string Profession { get; set; }
         public Branch branch { get; set; }
        
-       
-
         public Employee(string name, string surname,double salary, string profession)
         {
             this.Name = name;

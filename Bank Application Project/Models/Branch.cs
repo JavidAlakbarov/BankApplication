@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bank_Application_Project.Models
 {
-    public class Branch : GenericProperties
+    public class Branch : GeneralProperties
     {
         public string Address { get; set; }
         public double Budget { get; set; }

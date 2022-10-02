@@ -12,20 +12,36 @@ namespace Bank_Application_Project.Services.Implementations
 
     public class EmployeeService : IBankService<Employee>, IEmployeeService
     {
-        private Bank<Employee> employees;
+        public Bank<Employee> employees;
         public EmployeeService()  //Dependency Injection (Data-Bank classini gormek ucun)
         {
             employees=new Bank<Employee>();
         }
-        public void Create(Employee entity)
+        public void Create(Employee employee)
         {
-           employees.DataBase.Add(entity);
+            try
+            {               
+                
+                Console.WriteLine("Add new employee");
+                Console.WriteLine("Name:");
+                string name = Console.ReadLine();
+                Console.WriteLine("Surname:");               
+                string surname = Console.ReadLine();
+                Console.WriteLine("Salary:");
+                double salary = double.Parse(Console.ReadLine());
+                Console.WriteLine("Profession:");
+                string profession = Console.ReadLine();
+            }
+            catch
+            {
+                Console.WriteLine("incorrect");
+            }  
         }
 
         public void Delete(string name)
         {
            Employee employee = employees.DataBase.Find(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
-           employee.SoftDelete = false;
+           employee.SoftDelete = true;
            GetAll();        
         }
 
@@ -51,9 +67,11 @@ namespace Bank_Application_Project.Services.Implementations
             }
         }
 
-        public void Update()
+        public void Update(string name,double salary,string profession)
         {
-            throw new NotImplementedException();
+            Employee employee = employees.DataBase.Find(z => z.Name.Trim().ToLower() == name.Trim().ToLower());
+            employee.Salary = salary;
+            employee.Profession=profession;
         }
     }
 }

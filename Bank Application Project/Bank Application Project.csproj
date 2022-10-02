@@ -46,7 +46,7 @@
     <Compile Include="Data\Bank.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Employee.cs" />
-    <Compile Include="Models\GenericProperties.cs" />
+    <Compile Include="Models\GeneralProperties.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
