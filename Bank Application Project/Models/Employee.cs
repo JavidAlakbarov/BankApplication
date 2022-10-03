@@ -13,13 +13,13 @@ namespace Bank_Application_Project.Models
         public string Profession { get; set; }
         public Branch branch { get; set; }
        
-        public Employee(string name, string surname,double salary, string profession)
-        {
-            this.Name = name;
-            this.Surname = surname;
-            this.Salary = salary;
-            this.Profession = profession;
-            this.SoftDelete = false;
-        }
+        //public Employee(string name, string surname,double salary, string profession)
+        //{
+        //    this.Name = name;
+        //    this.Surname = surname;
+        //    this.Salary = salary;
+        //    this.Profession = profession;
+        //    this.SoftDelete = false;
+        //}
     }
 }

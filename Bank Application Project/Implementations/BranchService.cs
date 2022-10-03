@@ -11,7 +11,7 @@ namespace Bank_Application_Project.Services.Implementations
 {
     public class BranchService : IBranchService, IBankService<Branch>
     {
-        private Bank<Branch> branches;
+        public Bank<Branch> branches;
 
         public BranchService()  //Dependency Injection (Data-Bank classini gormek ucun)
         {

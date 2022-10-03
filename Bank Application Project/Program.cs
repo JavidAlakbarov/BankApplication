@@ -33,11 +33,16 @@ namespace Bank_Application_Project
 
             BranchService branchService = new BranchService();
             EmployeeService employeeService = new EmployeeService();
+            Employee employee = new Employee();
 
+            
           
 
             if (username == username1 && password == password1)
             {
+                Console.WriteLine("Make your choice :");
+                Console.WriteLine("Press 1 for Employee Operations");
+                Console.WriteLine("Press 2 for Branch Operations");
                 int choose = int.Parse(Console.ReadLine());
                 switch (choose)
                 {
@@ -48,11 +53,7 @@ namespace Bank_Application_Project
                         BranchMenu();
                         break;
                 }
-                EmployeeMenu();
-                Console.WriteLine("Make your choice :");
-                Console.WriteLine("Press 1 for Employee Operations");
-                Console.WriteLine("Press 2 for Branch Operations");
-              
+                EmployeeMenu();                        
                 int operation = int.Parse(Console.ReadLine());
                 switch (operation)
                 {
@@ -62,21 +63,23 @@ namespace Bank_Application_Project
                         switch (empMenu)
                         {
                             case 1:
-                                Employee emp1 = new Employee("Javid", "Alakbarov", 5000, "Frontend developer");
-                                employeeService.Create(emp1);
-                                Console.WriteLine(emp1.Name+" "+emp1.Surname+" "+emp1.Salary+" "+emp1.Profession);
+                                //Employee emp1 = new Employee("Javid", "Alakbarov", 5000, "Frontend developer");
+                                //employeeService.Create(emp1);
+                                //Console.WriteLine(emp1.Name+" "+emp1.Surname+" "+emp1.Salary+" "+emp1.Profession);
+                                employeeService.Create(employee);
+                             
                                 break;
                             case 2:
-                               
+                                employeeService.Delete("");
                                 break;
                             case 3:
-
+                                employeeService.Update("",1,"");
                                 break;
                             case 4:
-
+                                employeeService.Get("");
                                 break;
                             case 5:
-
+                                employeeService.GetAll();
                                 break;
                         }
                         BranchMenu();
@@ -116,33 +119,39 @@ namespace Bank_Application_Project
                         break;
                 }
             }
-
-            
-
-
-         
-                      
+            else { Console.WriteLine("Uncorrect username or password"); }
         }
         public static void SeedDataBase()
         {
-            //Employee employee1 = new Employee("Javid", "Alakbarov", 5000, "Frontend developer");
-            //Employee employee2 = new Employee("Ruslan", "Ibrahimov", 4500, "Backend developer");
-            //Employee employee3 = new Employee("Hesen", "Zeynalov", 4000, "System administrator");
-            //Employee employee4 = new Employee("Rafik", "Abdullayev", 3500, "Senior Audit");
-            //Employee employee5 = new Employee("Ramin", "Abbasbeyli", 3000, "Junior IT Manager");
+            Employee employee1 = new Employee();
+            Employee employee2 = new Employee();
+            Employee employee3 = new Employee();
+            Employee employee4 = new Employee();
+            Employee employee5 = new Employee();
 
-            //Branch branch1 = new Branch("Khatai", "Demirchi Plaza", 100000);
-            //Branch branch2 = new Branch("Narimanov", "Babek Plaza", 90000);
-            //Branch branch3 = new Branch("Yasamal", "Caspian Plaza", 80000);
-            //Branch branch4 = new Branch("Ganjlik", "Ganjlik Plaza", 70000);
-            //Branch branch5 = new Branch("Sabayil", "City Point Plaza", 60000);
+            Branch branch1 = new Branch("Khatai", "Demirchi Plaza", 100000);
+            Branch branch2 = new Branch("Narimanov", "Babek Plaza", 90000);
+            Branch branch3 = new Branch("Yasamal", "Caspian Plaza", 80000);
+            Branch branch4 = new Branch("Ganjlik", "Ganjlik Plaza", 70000);
+            Branch branch5 = new Branch("Sabayil", "City Point Plaza", 60000);
 
             //List<Employee> employees = new List<Employee>();
-            //employees.Add(employee1);
-            //employees.Add(employee2);
-            //employees.Add(employee3);
-            //employees.Add(employee4);
-            //employees.Add(employee5);
+
+            EmployeeService employeeService = new EmployeeService();
+           
+            employeeService.employees.DataBase.Add(employee1);
+            employeeService.employees.DataBase.Add(employee2);
+            employeeService.employees.DataBase.Add(employee3);
+            employeeService.employees.DataBase.Add(employee4);
+            employeeService.employees.DataBase.Add(employee5);
+
+            BranchService branchService = new BranchService();
+            branchService.branches.DataBase.Add(branch1);
+            branchService.branches.DataBase.Add(branch2);
+            branchService.branches.DataBase.Add(branch3);
+            branchService.branches.DataBase.Add(branch4);
+            branchService.branches.DataBase.Add(branch5);
+
         }
 
         public static void EmployeeMenu()
