@@ -50,8 +50,8 @@
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Implementations\BranchService.cs" />
-    <Compile Include="Implementations\EmployeeService.cs" />
+    <Compile Include="Services\Implementations\BranchService.cs" />
+    <Compile Include="Services\Implementations\EmployeeService.cs" />
     <Compile Include="Services\Interfaces\IBankService.cs" />
     <Compile Include="Services\Interfaces\IBranchService.cs" />
     <Compile Include="Services\Interfaces\IEmployeeService.cs" />

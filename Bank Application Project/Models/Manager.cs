@@ -13,13 +13,10 @@ namespace Bank_Application_Project.Models
         public string Password { get; set; }
 
 
-        public Manager(string name, string surname, string username, string password )
+        public Manager()
         {
-            this.Name = name;
-            this.Surname = surname;
-            this.Username = username;
-            this.Password = password;
-            this.SoftDelete = false;
+            Username = "Javid";
+            Password = "Javid023";
         }
     }
 }

@@ -19,38 +19,43 @@ namespace Bank_Application_Project.Services.Implementations
         }
         public void Create(Employee employee)
         {
+            Bank<Employee> bank = new Bank<Employee>();
+            bank.DataBase.Add(employee);
             try
-            {               
-                
-                Console.WriteLine("Add new employee");
-                Console.WriteLine("Name:");
-                string name = Console.ReadLine();
-                Console.WriteLine("Surname:");               
-                string surname = Console.ReadLine();
-                Console.WriteLine("Salary:");
-                double salary = double.Parse(Console.ReadLine());
-                Console.WriteLine("Profession:");
-                string profession = Console.ReadLine();
-            }
-            catch
             {
-                Console.WriteLine("incorrect");
+                Console.Write("Enter the name :");
+                string name = Console.ReadLine();
+                Console.Write("Enter the surname :");
+                string surname = Console.ReadLine();
+                Console.WriteLine("Enter the salary :");
+                double salary = double.Parse(Console.ReadLine());
+                Console.Write("Enter the profession :");
+                string profession = Console.ReadLine();
+                employee.Name = name;
+                employee.Surname = surname;
+                employee.Salary = salary;
+                employee.Profession = profession;
+                Console.WriteLine("Successful operation!");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Unsuccessful operation!");
             }  
         }
 
-        public void Delete(string name)
+        public void Delete(Employee employee1)
         {
-           Employee employee = employees.DataBase.Find(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
-           employee.SoftDelete = true;
+           Employee employee = employees.DataBase.Find(x => x.Name.ToLower().Trim() == employee1.Name.ToLower().Trim());                   
+          employee.SoftDelete = true;
            GetAll();        
         }
 
-        public void Get(string filter)
+        public void Get(string entity)
         {
             try
             {
-                Employee employee = employees.DataBase.Find(m => m.Name.Contains(filter.ToLower().Trim())
-                                                        || m.Surname.Contains(filter.ToLower().Trim()));
+                Employee employee = employees.DataBase.Find(m => m.Name.Contains(entity.ToLower().Trim())
+                                                        || m.Surname.Contains(entity.ToLower().Trim()));
                 Console.WriteLine(employee.Name + " " + employee.Surname);
             }
             catch (Exception)
@@ -67,11 +72,14 @@ namespace Bank_Application_Project.Services.Implementations
             }
         }
 
-        public void Update(string name,double salary,string profession)
+        public void Update()
         {
+            Console.Write("Enter the name :");
             Employee employee = employees.DataBase.Find(z => z.Name.Trim().ToLower() == name.Trim().ToLower());
-            employee.Salary = salary;
-            employee.Profession=profession;
+            Console.Write("Enter the salary :");
+            employee.Salary = double.Parse(Console.ReadLine());
+            Console.Write("Enter the profession :");
+            employee.Profession = Console.ReadLine();
         }
     }
 }
