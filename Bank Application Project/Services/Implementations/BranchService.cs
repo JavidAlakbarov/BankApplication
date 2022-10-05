@@ -17,37 +17,27 @@ namespace Bank_Application_Project.Services.Implementations
         {
             branches = new Bank<Branch>();
         }
-        public void Create(Branch branch)
+        public void Create()
         {
-            Bank<Branch> bank = new Bank<Branch>();
-            bank.DataBase.Add(branch);
-            try
-            {
                 Console.Write("Enter the branch name :");
                 string name = Console.ReadLine();
                 Console.Write("Enter the branch budget :");             
                 double budget = double.Parse(Console.ReadLine());
                 Console.Write("Enter the branch address :");
                 string address = Console.ReadLine();
+                Branch branch = new Branch();
                 branch.Name = name;
                 branch.Budget = budget;
                 branch.Address = address;
-                Console.WriteLine("Successful operation!");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Unsuccessful operation!");
-            }
-
+                branches.DataBase.Add(branch);
+                Console.WriteLine($"Name:{name},Budget:{budget},Address:{address}");           
         }
-
         public void Delete(Branch branch1)
         {
             Branch branch = branches.DataBase.Find(x => x.Name.ToLower().Trim() == branch1.Name.ToLower().Trim());
             branch.SoftDelete = false;
             GetAll();
         }
-
         public void Get(string entity)
         {
             try
@@ -62,7 +52,6 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine("Branch not found");
             }
         }
-
         public void GetAll()
         {
             foreach (var branch in branches.DataBase.Where(m => m.SoftDelete == false))
@@ -70,18 +59,17 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine(branch.Name +" "+ branch.Address);
             }
         }
-
-        public void GetProfit(Branch entity)
+        public void GetProfit(string name)
         {
+            Branch branch = branches.DataBase.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
             Console.Write("Calculate profit and loss: ");
             Console.Write("Input Cost Price: ");
             Console.Write("Input Selling Price: ");
             double sellprice = 0;
-            entity.employees.ForEach(c => sellprice += c.Salary);
-            double getprofit = entity.Budget - sellprice;
-            Console.WriteLine($"Profit of the {entity.Name}  branch in {getprofit}");
+            branch.employees.ForEach(c => sellprice += c.Salary);
+            double getprofit = branch.Budget - sellprice;
+            Console.WriteLine($"Profit of the {branch.Name}  branch in {getprofit}");
         }
-
         public void HireEmployee(Branch branch)
         {
             Employee employee = new Employee();
@@ -92,7 +80,6 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine($"Employee {employee.Name} surname {employee.Surname} was successfully hired. ");
             }
         }
-
         public void TransferEmployee(Branch branch)
         {
             Employee employee = new Employee();
@@ -104,7 +91,6 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine($"Employee {employee.Name} {employee.Surname} transtfer from {branch.Address}");
             }
         }
-
         public void TransferMoney()
         {
             Console.WriteLine("---Trasfer Money---");
@@ -132,12 +118,11 @@ namespace Bank_Application_Project.Services.Implementations
                 }
             }
         }
-
         public void Update()
         {
             Console.Write("Enter the branch name :");
             string Name = Console.ReadLine();
-            Branch branch = branches.DataBase.Find(z => z.Name.Trim().ToLower() == name.Trim().ToLower());
+            Branch branch = branches.DataBase.Find(z => z.Name.Trim().ToLower() == Name.Trim().ToLower());
             Console.Write("Enter the branch budget :");
             branch.Budget = double.Parse(Console.ReadLine());
             Console.Write("Enter the branch address :");

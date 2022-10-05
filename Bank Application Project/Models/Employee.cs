@@ -11,8 +11,6 @@ namespace Bank_Application_Project.Models
         public string Surname { get; set; }
         public double Salary { get; set; }
         public string Profession { get; set; }
-        public Branch branch { get; set; }
-       
-        
+        public Branch branch { get; set; }               
     }
 }

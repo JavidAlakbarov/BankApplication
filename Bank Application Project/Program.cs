@@ -22,8 +22,6 @@ namespace Bank_Application_Project
 
             while (true)
             {
-                try
-                {
                     string username = "Javid";
                     string password = "Javid023";
                     Console.Write("Enter your username : ");
@@ -33,7 +31,7 @@ namespace Bank_Application_Project
                     if (username == username1 && password == password1)
                     {
                         Console.WriteLine("Press Enter");
-                    Menu: ManagerMenu();
+                        Menu: ManagerMenu();
                         int operation = int.Parse(Console.ReadLine());
 
                         switch (operation)
@@ -44,17 +42,16 @@ namespace Bank_Application_Project
                                 switch (empMenu)
                                 {
                                     case 1:
-                                        employeeService.Create(employee);
+                                        employeeService.Create();
                                         foreach (Employee employee1 in employeeService.employees.DataBase)
                                         {
                                             Console.WriteLine($"Name: {employee1.Name} Surname: {employee1.Surname}  Salary: {employee1.Salary} Profession: {employee1.Profession}");
-                                        }
-                                        Console.ReadKey();
+                                        }                                    
                                         goto Menu;
                                         
                                     case 2:
                                         employeeService.Delete(employee);
-                                        Console.ReadKey();
+                                       
                                         goto Menu;
                                         
                                     case 3:
@@ -66,7 +63,7 @@ namespace Bank_Application_Project
                                         {
                                             Console.WriteLine($"Name: {employee1.Name} Surname: {employee1.Surname}  Salary: {employee1.Salary} Profession: {employee1.Profession}");
                                         }
-                                        Console.ReadKey();
+                                      
                                         goto Menu;
                                         
                                     case 5:
@@ -87,45 +84,51 @@ namespace Bank_Application_Project
                                 switch (branchMenu)
                                 {
                                     case 1:
-                                        branchService.Create(branch);
-                                        Console.ReadKey();
+                                        branchService.Create();
+                                        
                                         goto Menu;
                                        
                                     case 2:
                                         branchService.Delete(branch);
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
                                        
                                     case 3:
                                         branchService.TransferMoney();
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
                                         
                                     case 4:
                                         branchService.TransferEmployee(branch);
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
                                         
                                     case 5:
                                         branchService.HireEmployee(branch);
-                                        Console.ReadKey();
+                                       
                                         goto Menu;
                                        
                                     case 6:
                                         branchService.Get(branch.Name);
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
                                        
                                     case 7:
                                         branchService.GetAll();
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
                                         
                                     case 8:
                                         branchService.Update();
-                                        Console.ReadKey();
+                                        
                                         goto Menu;
-                                       
+
+                                    case 9:
+                                        Console.WriteLine("Enter branch name :");
+                                        string name = Console.ReadLine().Trim();
+                                        branchService.GetProfit(name);
+                                        
+                                        goto Menu;
                                     default: Console.WriteLine("No more operations");
                                         break;
                                 }                              
@@ -135,19 +138,13 @@ namespace Bank_Application_Project
                     else
                     {
                         Console.WriteLine("Wrong username or password");
-                    }
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Wrong username or password");
-                }
-                
+                    }                             
             }
-}
+        }
         public static void ManagerMenu()
         {
-            Console.WriteLine("1 for Branch");
-            Console.WriteLine("2 for Employee");
+            Console.WriteLine("1 for Employee");
+            Console.WriteLine("2 for Branch");
         }
         public static void EmployeeMenu()
         {

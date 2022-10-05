@@ -10,8 +10,6 @@ namespace Bank_Application_Project.Models
     {
         public string Address { get; set; }
         public double Budget { get; set; }
-        public List<Employee> employees { get; set; }
-       
-    
+        public List<Employee> employees { get; set; }         
     }
 }

@@ -9,7 +9,7 @@ namespace Bank_Application_Project.Services.Interfaces
 {
     public interface IBankService <T> where T : GeneralProperties
     {
-        void Create(T entity);
+        void Create();
         void Update();
         void Delete(T branch);
         void Get(string entity);

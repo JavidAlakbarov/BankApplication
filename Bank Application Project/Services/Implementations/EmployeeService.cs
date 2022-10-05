@@ -9,7 +9,6 @@ using Bank_Application_Project.Services.Interfaces;
 
 namespace Bank_Application_Project.Services.Implementations
 {
-
     public class EmployeeService : IBankService<Employee>, IEmployeeService
     {
         public Bank<Employee> employees;
@@ -17,12 +16,8 @@ namespace Bank_Application_Project.Services.Implementations
         {
             employees=new Bank<Employee>();
         }
-        public void Create(Employee employee)
-        {
-            Bank<Employee> bank = new Bank<Employee>();
-            bank.DataBase.Add(employee);
-            try
-            {
+        public void Create()
+        {           
                 Console.Write("Enter the name :");
                 string name = Console.ReadLine();
                 Console.Write("Enter the surname :");
@@ -31,25 +26,20 @@ namespace Bank_Application_Project.Services.Implementations
                 double salary = double.Parse(Console.ReadLine());
                 Console.Write("Enter the profession :");
                 string profession = Console.ReadLine();
+                Employee employee = new Employee();
                 employee.Name = name;
                 employee.Surname = surname;
                 employee.Salary = salary;
                 employee.Profession = profession;
-                Console.WriteLine("Successful operation!");
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Unsuccessful operation!");
-            }  
+                employees.DataBase.Add(employee);
+                Console.WriteLine($"Name:{name},Surname:{surname},Salary:{salary},Profession:{profession}");                          
         }
-
         public void Delete(Employee employee1)
         {
            Employee employee = employees.DataBase.Find(x => x.Name.ToLower().Trim() == employee1.Name.ToLower().Trim());                   
           employee.SoftDelete = true;
            GetAll();        
         }
-
         public void Get(string entity)
         {
             try
@@ -63,7 +53,6 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine("Employee not found");
             }        
         }
-
         public void GetAll()
         {
             foreach (var employee in employees.DataBase.Where(m => m.SoftDelete == false))
@@ -71,11 +60,11 @@ namespace Bank_Application_Project.Services.Implementations
                 Console.WriteLine(employee.Name + " " + employee.Surname);
             }
         }
-
         public void Update()
         {
             Console.Write("Enter the name :");
-            Employee employee = employees.DataBase.Find(z => z.Name.Trim().ToLower() == name.Trim().ToLower());
+            string Name = Console.ReadLine();
+            Employee employee = employees.DataBase.Find(z => z.Name.Trim().ToLower() == Name.Trim().ToLower());
             Console.Write("Enter the salary :");
             employee.Salary = double.Parse(Console.ReadLine());
             Console.Write("Enter the profession :");
