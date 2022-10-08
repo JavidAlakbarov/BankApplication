@@ -11,7 +11,7 @@ namespace Bank_Application_Project.Services.Interfaces
     {
         void Create();
         void Update();
-        void Delete(T branch);
+        void Delete();
         void Get(string entity);
         void GetAll();
     }

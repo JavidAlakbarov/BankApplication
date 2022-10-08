@@ -10,11 +10,6 @@ namespace Bank_Application_Project.Models
     {
         public string Surname { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
-        public Manager()
-        {
-            Username = "Javid";
-            Password = "Javid023";
-        }
+        public string Password { get; set; }        
     }
 }

@@ -16,9 +16,8 @@ namespace Bank_Application_Project
             Branch branch = new Branch();
             Employee employee = new Employee();
             Manager manager = new Manager();
-
-            BranchService branchService = new BranchService();
             EmployeeService employeeService = new EmployeeService();
+            BranchService branchService = new BranchService(employeeService);
 
             while (true)
             {
@@ -42,16 +41,11 @@ namespace Bank_Application_Project
                                 switch (empMenu)
                                 {
                                     case 1:
-                                        employeeService.Create();
-                                        foreach (Employee employee1 in employeeService.employees.DataBase)
-                                        {
-                                            Console.WriteLine($"Name: {employee1.Name} Surname: {employee1.Surname}  Salary: {employee1.Salary} Profession: {employee1.Profession}");
-                                        }                                    
+                                        employeeService.Create();                                                                          
                                         goto Menu;
                                         
                                     case 2:
-                                        employeeService.Delete(employee);
-                                       
+                                        employeeService.Delete();                                       
                                         goto Menu;
                                         
                                     case 3:
@@ -59,19 +53,13 @@ namespace Bank_Application_Project
                                         goto Menu;
                                         
                                     case 4:
-                                        foreach(Employee employee1 in employeeService.employees.DataBase)
-                                        {
-                                            Console.WriteLine($"Name: {employee1.Name} Surname: {employee1.Surname}  Salary: {employee1.Salary} Profession: {employee1.Profession}");
-                                        }
-                                      
-                                        goto Menu;
-                                        
-                                    case 5:
                                         employeeService.Get(employee.Name);
+                                     
                                         goto Menu;
-                                        
-                                    case 6:
+
+                                    case 5:
                                         employeeService.GetAll();
+                                    Console.WriteLine(employee.Name);
                                         goto Menu;
                                         
                                     default: Console.WriteLine("No more operations");
@@ -85,48 +73,42 @@ namespace Bank_Application_Project
                                 {
                                     case 1:
                                         branchService.Create();
-                                        
                                         goto Menu;
                                        
                                     case 2:
-                                        branchService.Delete(branch);
-                                        
+                                        branchService.Delete();
                                         goto Menu;
                                        
                                     case 3:
                                         branchService.TransferMoney();
-                                        
                                         goto Menu;
                                         
                                     case 4:
                                         branchService.TransferEmployee(branch);
-                                        
                                         goto Menu;
                                         
                                     case 5:
-                                        branchService.HireEmployee(branch);
-                                       
+                                        branchService.HireEmployee();
+                                        Console.ReadKey();
                                         goto Menu;
                                        
                                     case 6:
                                         branchService.Get(branch.Name);
-                                        
                                         goto Menu;
                                        
                                     case 7:
                                         branchService.GetAll();
-                                        
                                         goto Menu;
                                         
                                     case 8:
                                         branchService.Update();
-                                        
                                         goto Menu;
 
                                     case 9:
-                                        Console.WriteLine("Enter branch name :");
-                                        string name = Console.ReadLine().Trim();
-                                        branchService.GetProfit(name);
+                                        branchService.GetProfit();
+                                        Console.Write("Enter branch name :");
+                                        string branchName = Console.ReadLine().Trim();
+                                        branchService.GetProfit();
                                         
                                         goto Menu;
                                     default: Console.WriteLine("No more operations");
@@ -163,7 +145,7 @@ namespace Bank_Application_Project
             Console.WriteLine("Press 3 for TransferMoney Operation");
             Console.WriteLine("Press 4 for TransferEmployee Operation");
             Console.WriteLine("Press 5 for HireEmployee Operation");
-            Console.WriteLine("Press 6 for GetProfit Operation");
+            Console.WriteLine("Press 6 for Get Operation");
             Console.WriteLine("Press 7 for GetAll Operation");
             Console.WriteLine("Press 8 for Update Operation");
             Console.WriteLine("Press 9 for GetProfit Operation");

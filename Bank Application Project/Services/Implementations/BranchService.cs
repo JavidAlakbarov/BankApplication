@@ -12,13 +12,16 @@ namespace Bank_Application_Project.Services.Implementations
     public class BranchService : IBranchService, IBankService<Branch>
     {
         public Bank<Branch> branches;
+        public EmployeeService employeeService;
 
-        public BranchService()  //Dependency Injection (Data-Bank classini gormek ucun)
+        public BranchService(EmployeeService employees)  
         {
+            employeeService=employees;
             branches = new Bank<Branch>();
         }
         public void Create()
         {
+            //creating
                 Console.Write("Enter the branch name :");
                 string name = Console.ReadLine();
                 Console.Write("Enter the branch budget :");             
@@ -32,88 +35,100 @@ namespace Bank_Application_Project.Services.Implementations
                 branches.DataBase.Add(branch);
                 Console.WriteLine($"Name:{name},Budget:{budget},Address:{address}");           
         }
-        public void Delete(Branch branch1)
+        public void Delete()
         {
-            Branch branch = branches.DataBase.Find(x => x.Name.ToLower().Trim() == branch1.Name.ToLower().Trim());
-            branch.SoftDelete = false;
-            GetAll();
+            Console.WriteLine("Enter the branch name : ");
+            string name = Console.ReadLine();
+            Branch branch = branches.DataBase.Find(x => x.Name.ToLower().Trim() == name.ToLower().Trim());
+            branch.SoftDelete = true;
         }
         public void Get(string entity)
         {
             try
             {
-                Console.Write("Enter the branch name :");
-                string entity1 = Console.ReadLine();
                 Branch branch = branches.DataBase.Find(m => m.Name.Contains(entity.ToLower().Trim()));
-                Console.WriteLine(branch.Name);
+                if (branch.SoftDelete == true)
+                {
+                    Console.WriteLine(branch.Name);
+                }
             }
             catch (Exception)
             {
                 Console.WriteLine("Branch not found");
-            }
+            }                     
         }
         public void GetAll()
         {
             foreach (var branch in branches.DataBase.Where(m => m.SoftDelete == false))
             {
-                Console.WriteLine(branch.Name +" "+ branch.Address);
+                Console.WriteLine(branch.Name +" "+ branch.Address+" "+branch.Budget);
             }
         }
-        public void GetProfit(string name)
+        public void GetProfit()
         {
-            Branch branch = branches.DataBase.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
+            Branch branch = new Branch();
+            string name = Console.ReadLine();
+            Branch branch1 = branches.DataBase.Where(x => x.Name.ToLower() == name.ToLower()).FirstOrDefault();
             Console.Write("Calculate profit and loss: ");
-            Console.Write("Input Cost Price: ");
-            Console.Write("Input Selling Price: ");
-            double sellprice = 0;
-            branch.employees.ForEach(c => sellprice += c.Salary);
-            double getprofit = branch.Budget - sellprice;
-            Console.WriteLine($"Profit of the {branch.Name}  branch in {getprofit}");
+            Console.Write("Input sell price: ");
+            double sellPrice = double.Parse(Console.ReadLine());
+            branch.employees.ForEach(c => sellPrice += c.Salary);
+            double getProfit = branch.Budget - sellPrice;
+            Console.WriteLine($"Profit of the {branch.Name}  branch is {getProfit}");
         }
-        public void HireEmployee(Branch branch)
+        public void HireEmployee()
         {
-            Employee employee = new Employee();
-            if (branch.Budget > employee.Salary)
+            Console.Write("Name of branch : ");
+            string brName = Console.ReadLine();
+            Console.Write("Name of employee : ");
+            string empName = Console.ReadLine();
+            Branch branch = branches.DataBase.Where(s => s.Name == brName).FirstOrDefault();
+            Employee employee = employeeService.employees.DataBase.Where(x=>x.Name == empName).FirstOrDefault();
+            branch.employees.Add(employee);
+            employee.branch = branch;
+            foreach(var item in branch.employees)
             {
-                branch.employees.Add(employee);
-                branch.Budget -= employee.Salary;
-                Console.WriteLine($"Employee {employee.Name} surname {employee.Surname} was successfully hired. ");
+                Console.WriteLine("Employee + " + item.Name);
             }
+            
         }
         public void TransferEmployee(Branch branch)
         {
             Employee employee = new Employee();
             if (branch.Budget > employee.Salary)
             {
+                Console.Write("Enter the name of employee : ");
+                string name = Console.ReadLine();
+                Console.WriteLine();
                 branch.employees.Remove(employee);
                 branch.employees.Add(employee);
                 branch.Budget -= employee.Salary;
-                Console.WriteLine($"Employee {employee.Name} {employee.Surname} transtfer from {branch.Address}");
+                Console.WriteLine($"Employee {employee.Name}, {employee.Surname} transfer from {branch.Address}");
             }
+
         }
         public void TransferMoney()
-        {
-            Console.WriteLine("---Trasfer Money---");
-            Console.Write("Please enter your Name: ");
-            string yourname = Console.ReadLine();
-            Console.Write("Please enter the Name of the person you would like to tranfer funds to: ");
+        {           
+            Console.Write("Enter branch name: ");
+            string yourName = Console.ReadLine();
+            Console.Write("Enter the name of the receivable branch : ");
             string name = Console.ReadLine();
-            Console.Write("Enter the amount of funds you would like to transfer: ");
-            string amount = Console.ReadLine();
+            Console.Write("Enter the amount : ");
+            double amount = double.Parse(Console.ReadLine());
             Branch branch = new Branch();
             foreach (Branch Transfer in branches.DataBase)
             {
-                if (Transfer.Name == name)
+                if (Transfer.Name == yourName)
                 {
-                    Transfer.Budget -= branch.Budget;
-                    break;
+                    Transfer.Budget -= amount;
+                    
                 }
             }
             foreach (Branch Transfer in branches.DataBase)
             {
                 if (Transfer.Name == name)
                 {
-                    branch.Budget += Transfer.Budget;
+                    Transfer.Budget += amount;
                     break;
                 }
             }
