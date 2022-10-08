@@ -10,8 +10,8 @@ namespace Bank_Application_Project.Services.Interfaces
 {
     public interface IBranchService : IBankService<Branch>
     {
-        void HireEmployee(Branch branch);
-        void GetProfit(string name);
+        void HireEmployee();
+        void GetProfit();
         void TransferMoney();
         void TransferEmployee(Branch branch);         
     }
