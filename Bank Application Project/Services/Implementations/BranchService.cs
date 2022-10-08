@@ -85,7 +85,7 @@ namespace Bank_Application_Project.Services.Implementations
             Branch branch = branches.DataBase.Where(s => s.Name == brName).FirstOrDefault();
             Employee employee = employeeService.employees.DataBase.Where(x=>x.Name == empName).FirstOrDefault();
             branch.employees.Add(employee);
-            employee.branch = branch;
+            //employee.branch = branch;
             foreach(var item in branch.employees)
             {
                 Console.WriteLine("Employee + " + item.Name);
