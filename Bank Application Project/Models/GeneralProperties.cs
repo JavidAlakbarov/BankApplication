@@ -8,6 +8,7 @@ namespace Bank_Application_Project.Models
 {
     public class GeneralProperties
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public bool SoftDelete { get; set; }
     }

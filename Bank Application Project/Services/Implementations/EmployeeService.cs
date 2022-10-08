@@ -45,8 +45,9 @@ namespace Bank_Application_Project.Services.Implementations
         {
             try
             {
-                Employee employee = employees.DataBase.Find(m => m.Name.Contains(entity.ToLower().Trim())
-                                                        || m.Surname.Contains(entity.ToLower().Trim()));                
+                Console.Write("Enter the name :");
+                string name = Console.ReadLine();
+                Employee employee = employees.DataBase.Find(m => m.Name.Contains(name.ToLower().Trim()));        
                 if (employee.SoftDelete == true)
                 {
                     Console.WriteLine(employee.Name + " " + employee.Surname);
